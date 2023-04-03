@@ -1,6 +1,7 @@
 package ru.javarush.todo.entity;
 
 import jakarta.persistence.*;
+//import ru.javarush.todo.entity.Status;
 
 @Entity
 @Table(schema = "todo", name = "task")

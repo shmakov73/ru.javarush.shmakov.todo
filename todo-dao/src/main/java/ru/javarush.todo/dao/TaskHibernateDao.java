@@ -6,16 +6,19 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import ru.javarush.todo.dao.TaskDao;
 import ru.javarush.todo.entity.Task;
+//import ru.javarush.todo.dao.TaskDao;
+//import ru.javarush.todo.entity.Task;
 
 import java.util.List;
 
 @Repository
-public class TaskDao {
+public class TaskHibernateDao implements TaskDao {
 
     private final SessionFactory sessionFactory;
 
-    public TaskDao(SessionFactory sessionFactory) {
+    public TaskHibernateDao(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

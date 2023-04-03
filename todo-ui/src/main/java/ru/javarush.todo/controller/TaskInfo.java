@@ -2,6 +2,7 @@ package ru.javarush.todo.controller;
 
 import ru.javarush.todo.entity.Status;
 
+
 public class TaskInfo {
 
     private String description;
@@ -18,6 +19,7 @@ public class TaskInfo {
     public Status getStatus() {
         return status;
     }
+
 
     public void setStatus(Status status) {
         this.status = status;

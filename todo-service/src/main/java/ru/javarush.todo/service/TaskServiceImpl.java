@@ -11,11 +11,11 @@ import java.util.List;
 import static java.util.Objects.isNull;
 
 @Service
-public class TaskService {
+public class TaskServiceImpl implements TaskService {
 
     private final TaskDao taskDao;
 
-    public TaskService(TaskDao taskDao) {
+    public TaskServiceImpl(TaskDao taskDao) {
         this.taskDao = taskDao;
     }
 

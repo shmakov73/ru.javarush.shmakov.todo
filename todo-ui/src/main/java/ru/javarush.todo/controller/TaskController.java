@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.javarush.todo.entity.Task;
 import ru.javarush.todo.service.TaskService;
 
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -17,6 +18,7 @@ import static java.util.Objects.isNull;
 public class TaskController {
 
     private final TaskService taskService;
+
 
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
