@@ -1,7 +1,13 @@
 package ru.javarush.todo.entity;
 
-import jakarta.persistence.*;
-//import ru.javarush.todo.entity.Status;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Column;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 @Table(schema = "todo", name = "task")

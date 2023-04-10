@@ -17,7 +17,8 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan
+@ComponentScan("ru.javarush.todo")
+@Import(AppServiceConfig.class)
 public class WebConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;

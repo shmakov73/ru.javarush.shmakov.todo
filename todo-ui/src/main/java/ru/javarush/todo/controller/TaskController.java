@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.javarush.todo.entity.Task;
 import ru.javarush.todo.service.TaskService;
 
-
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;

@@ -4,11 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.javarush.shmakov.todo</groupId>
-    <artifactId>todo-list</artifactId>
+    <groupId>ru.javarush.todo</groupId>
+    <artifactId>todoList</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-
     <modules>
         <module>todo-dao</module>
         <module>todo-service</module>
@@ -17,8 +16,8 @@
 
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>18</maven.compiler.source>
+        <maven.compiler.target>18</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -36,22 +35,15 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>ru.javarush</groupId>
+                <groupId>ru.javarush.todo</groupId>
                 <artifactId>todo-dao</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>ru.javarush</groupId>
+                <groupId>ru.javarush.todo</groupId>
                 <artifactId>todo-service</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
-
-            <dependency>
-                <groupId>ru.javarush</groupId>
-                <artifactId>todo-ui</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-
 
             <dependency>
                 <groupId>com.mysql</groupId>
