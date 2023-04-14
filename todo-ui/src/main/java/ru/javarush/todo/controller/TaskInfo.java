@@ -6,7 +6,18 @@ import ru.javarush.todo.entity.Status;
 public class TaskInfo {
 
     private String description;
+
     private Status status;
+
+    private String user;
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
 
     public String getDescription() {
         return description;

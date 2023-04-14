@@ -46,6 +46,7 @@ function update_task(task_id) {
     let url = getBaseUrl() + task_id;
     let value_description = $("#input_description_" + task_id).val();
     let value_status = $("#select_status_" + task_id).val();
+    let user = getUser('name')
 
     $.ajax({
         url:url,
@@ -53,7 +54,7 @@ function update_task(task_id) {
         dataType: 'json',
         contentType: 'application/json;charset=UTF-8',
         async: false,
-        data: JSON.stringify({"description": value_description, "status": value_status})
+        data: JSON.stringify({"description": value_description, "status": value_status, "user": user})
 
     });
 
@@ -65,6 +66,7 @@ function update_task(task_id) {
 function add_task(){
     let value_description = $("#description_new").val();
     let value_status = $("#status_new").val();
+    let user = getUser('name')
 
     $.ajax({
         url: getBaseUrl(),
@@ -72,7 +74,7 @@ function add_task(){
         dataType: 'json',
         contentType: 'application/json;charset=UTF-8',
         async: false,
-        data: JSON.stringify({"description": value_description, "status": value_status})
+        data: JSON.stringify({"description": value_description, "status": value_status, "user": user})
 
     });
 
@@ -85,4 +87,10 @@ function getBaseUrl(){
     let current_path = window.location.href;
     let end_position = current_path.indexOf('?');
     return current_path.substring(0, end_position);
+}
+
+function getUser(user) {
+    let p = window.location.search;
+    p = p.match(new RegExp(user + '=([^&=]+)'));
+    return p ? p[1] : false;
 }

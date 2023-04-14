@@ -2,6 +2,7 @@ package ru.javarush.todo.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,16 +21,18 @@ public class TaskHibernateDao implements TaskDao {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public List<Task> getAll(int offset, int limit){
-        Query<Task> query = getSession().createQuery("select t from Task t", Task.class);
+    public List<Task> getAll(int offset, int limit, String user){
+        Query<Task> query = getSession().createQuery("select t from Task t where t.user = :USER", Task.class);
+        query.setParameter("USER", user);
         query.setFirstResult(offset);
         query.setMaxResults(limit);
         return query.getResultList();
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public int getAllCount(){
-        Query<Long> query = getSession().createQuery("select count(t) from Task t", Long.class);
+    public int getAllCountByUser(String user){
+        Query<Long> query = getSession().createQuery("select count(t) from Task t where t.user = :USER", Long.class);
+        query.setParameter("USER", user);
         return Math.toIntExact(query.uniqueResult());
     }
 
@@ -48,6 +51,16 @@ public class TaskHibernateDao implements TaskDao {
     @Transactional(propagation = Propagation.REQUIRED)
     public void delete(Task task){
         getSession().remove(task);
+    }
+
+    @Transactional
+    public void findOrCreateUser(String name){
+        Query<Task> query = getSession().createQuery("select t from Task t where t.user = :NAME", Task.class);
+        query.setParameter("NAME", name);
+        Task task = query.uniqueResult();
+        if (task == null){
+
+        }
     }
 
     private Session getSession(){

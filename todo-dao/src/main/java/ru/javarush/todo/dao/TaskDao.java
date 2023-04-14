@@ -7,9 +7,9 @@ import ru.javarush.todo.entity.Task;
 import java.util.List;
 
 public interface TaskDao {
-    List<Task> getAll(int offset, int limit);
+    List<Task> getAll(int offset, int limit, String user);
 
-    int getAllCount();
+    int getAllCountByUser(String user);
 
     Task getById(int id);
 

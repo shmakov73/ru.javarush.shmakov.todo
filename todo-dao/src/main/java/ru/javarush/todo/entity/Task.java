@@ -9,6 +9,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(schema = "todo", name = "task")
 public class Task {
@@ -23,6 +25,20 @@ public class Task {
     @Column(name = "status")
     @Enumerated(EnumType.ORDINAL)
     private Status status;
+
+    @Column(name = "creation_time")
+    private LocalDateTime time;
+
+    @Column(name = "user")
+    private String user;
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
 
     public Integer getId() {
         return id;
@@ -46,5 +62,13 @@ public class Task {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
     }
 }

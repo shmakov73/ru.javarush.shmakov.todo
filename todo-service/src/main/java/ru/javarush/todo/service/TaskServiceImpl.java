@@ -6,6 +6,7 @@ import ru.javarush.todo.dao.TaskDao;
 import ru.javarush.todo.entity.Status;
 import ru.javarush.todo.entity.Task;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static java.util.Objects.isNull;
@@ -19,12 +20,12 @@ public class TaskServiceImpl implements TaskService {
         this.taskDao = taskDao;
     }
 
-    public List<Task> getAll(int offset, int limit){
-        return taskDao.getAll(offset, limit);
+    public List<Task> getAll(int offset, int limit, String user){
+        return taskDao.getAll(offset, limit, user);
     }
 
-    public int getAllCount(){
-        return taskDao.getAllCount();
+    public int getAllCountByUser(String user){
+        return taskDao.getAllCountByUser(user);
     }
 
     @Transactional
@@ -39,10 +40,12 @@ public class TaskServiceImpl implements TaskService {
         return task;
     }
 
-    public Task create(String description, Status status){
+    public Task create(String description, Status status, String user){
         Task task = new Task();
         task.setDescription(description);
         task.setStatus(status);
+        task.setTime(LocalDateTime.now());
+        task.setUser(user);
         taskDao.saveOrUpdate(task);
         return task;
     }
@@ -55,5 +58,10 @@ public class TaskServiceImpl implements TaskService {
         }
 
         taskDao.delete(task);
+    }
+
+    @Override
+    public void selectUser(String name) {
+
     }
 }
