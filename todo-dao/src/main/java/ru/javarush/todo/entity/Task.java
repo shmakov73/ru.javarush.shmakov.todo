@@ -71,4 +71,15 @@ public class Task {
     public LocalDateTime getTime() {
         return time;
     }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                ", time=" + time +
+                ", user='" + user + '\'' +
+                '}';
+    }
 }

@@ -15,6 +15,4 @@ public interface TaskService {
     Task create(String description, Status status, String user);
 
     public void delete(int id);
-
-    void selectUser(String name);
 }

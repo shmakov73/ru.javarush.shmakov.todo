@@ -1,8 +1,11 @@
 package ru.javarush.todo.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javarush.todo.dao.TaskDao;
+import ru.javarush.todo.dao.TaskHibernateDao;
 import ru.javarush.todo.entity.Status;
 import ru.javarush.todo.entity.Task;
 
@@ -13,6 +16,8 @@ import static java.util.Objects.isNull;
 
 @Service
 public class TaskServiceImpl implements TaskService {
+
+    private static final Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 
     private final TaskDao taskDao;
 
@@ -32,11 +37,13 @@ public class TaskServiceImpl implements TaskService {
     public Task edit(int id, String description, Status status){
         Task task = taskDao.getById(id);
         if (isNull(task)){
+            logger.warn("Task: {} not found", task);
             throw new RuntimeException("Not found");
         }
         task.setDescription(description);
         task.setStatus(status);
         taskDao.saveOrUpdate(task);
+        logger.info("Task :{} edited", task);
         return task;
     }
 
@@ -47,6 +54,7 @@ public class TaskServiceImpl implements TaskService {
         task.setTime(LocalDateTime.now());
         task.setUser(user);
         taskDao.saveOrUpdate(task);
+        logger.info("Added new Task: {}", task);
         return task;
     }
 
@@ -54,14 +62,10 @@ public class TaskServiceImpl implements TaskService {
     public void delete(int id){
         Task task = taskDao.getById(id);
         if (isNull(task)){
+            logger.warn("Task :{} not found", task);
             throw new RuntimeException("Not found");
         }
-
         taskDao.delete(task);
-    }
-
-    @Override
-    public void selectUser(String name) {
-
+        logger.info("Task :{} deleted", task);
     }
 }

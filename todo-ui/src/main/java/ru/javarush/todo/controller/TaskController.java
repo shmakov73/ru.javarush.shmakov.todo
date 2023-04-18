@@ -1,5 +1,7 @@
 package ru.javarush.todo.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,8 @@ import static java.util.Objects.isNull;
 @RequestMapping("/")
 public class TaskController {
 
+    private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
+
     private final TaskService taskService;
 
     public TaskController(TaskService taskService) {
@@ -31,6 +35,7 @@ public class TaskController {
             return "userPage";
         } else {
             model.addAttribute("name", name);
+            logger.info("Return page for user {}", name);
             return tasks(model, name, page, limit);
         }
     }
@@ -60,6 +65,7 @@ public class TaskController {
         }
 
         Task task = taskService.edit(id, info.getDescription(), info.getStatus());
+        logger.info("Task: {} edited", task);
         return tasks(model, info.getUser(), 1, 10);
     }
 
@@ -68,7 +74,7 @@ public class TaskController {
                       @RequestParam(value = "name", required = false) String name,
                       @RequestBody TaskInfo info) {
         Task task = taskService.create(info.getDescription(), info.getStatus(), info.getUser());
-
+        logger.info("Task: {} added", task);
         return tasks(model, info.getUser(), 1, 10);
 
     }
@@ -76,9 +82,11 @@ public class TaskController {
     @DeleteMapping("/{id}")
     public String delete(Model model, @PathVariable Integer id) {
         if (isNull(id) || id <= 0) {
+            logger.warn("Id {} invalid", id);
             throw new RuntimeException("Invalid id");
         }
         taskService.delete(id);
+        logger.info("Task id: {} deleted", id);
         return tasks(model, (String) model.getAttribute("name"), 1, 10);
     }
 }

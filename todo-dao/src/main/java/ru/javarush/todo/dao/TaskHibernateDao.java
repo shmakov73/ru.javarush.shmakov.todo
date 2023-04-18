@@ -4,6 +4,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,7 @@ import java.util.List;
 @Repository
 public class TaskHibernateDao implements TaskDao {
 
+    private static final Logger logger = LoggerFactory.getLogger(TaskHibernateDao.class);
     private final SessionFactory sessionFactory;
 
     public TaskHibernateDao(SessionFactory sessionFactory) {
@@ -46,21 +49,13 @@ public class TaskHibernateDao implements TaskDao {
     @Transactional(propagation = Propagation.REQUIRED)
     public void saveOrUpdate(Task task){
         getSession().persist(task);
+        logger.info("Task: {} saved", task);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
     public void delete(Task task){
         getSession().remove(task);
-    }
-
-    @Transactional
-    public void findOrCreateUser(String name){
-        Query<Task> query = getSession().createQuery("select t from Task t where t.user = :NAME", Task.class);
-        query.setParameter("NAME", name);
-        Task task = query.uniqueResult();
-        if (task == null){
-
-        }
+        logger.info("Task: {} deleted", task);
     }
 
     private Session getSession(){
