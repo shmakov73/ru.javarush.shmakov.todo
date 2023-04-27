@@ -1,0 +1,18 @@
+package ru.javarush.todo.service;
+
+import ru.javarush.todo.entity.Status;
+import ru.javarush.todo.entity.Task;
+
+import java.util.List;
+
+public interface TaskService {
+    List<Task> getAll(int offset, int limit, String user);
+
+    int getAllCountByUser(String user);
+
+    Task edit(int id, String description, Status status);
+
+    Task create(String description, Status status, String user);
+
+    public void delete(int id);
+}
